@@ -31,7 +31,6 @@ ARG PKG_DEPS="\
     bash \
     bash-doc \
     bash-completion \
-    bind-tools \
     dnsutils \
     iproute2 \
     net-tools \
