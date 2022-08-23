@@ -29,13 +29,17 @@ ENV DEBIAN_FRONTEND=$DEBIAN_FRONTEND
 ARG PKG_DEPS="\
     zsh \
     bash \
+    bash-doc \
     bash-completion \
+    bind-tools \
     dnsutils \
     iproute2 \
     net-tools \
+    sysstat \
     ncat \
     git \
     vim \
+    jq \
     tzdata \
     curl \
     wget \
@@ -43,6 +47,7 @@ ARG PKG_DEPS="\
     lsof \
     zip \
     unzip \
+    tar \
     rsync \
     iputils-ping \
     telnet \
@@ -56,6 +61,7 @@ ARG PKG_DEPS="\
     debsums \
     locales \
     iptables \
+    go \
     python \
     python2-dev \
     python3 \
