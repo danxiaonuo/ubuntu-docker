@@ -39,6 +39,7 @@ ARG PKG_DEPS="\
     git \
     vim \
     jq \
+    lrzsz \
     tzdata \
     curl \
     wget \
@@ -71,6 +72,8 @@ ENV PKG_DEPS=$PKG_DEPS
 
 # ***** 安装依赖 *****
 RUN set -eux && \
+   # 更新源地址
+   sed -i s@http://*.*ubuntu.com@https://mirrors.aliyun.com@g /etc/apt/sources.list && \
    # 更新系统软件
    DEBIAN_FRONTEND=noninteractive apt-get update -qqy && apt-get upgrade -qqy && \
    # 安装依赖包
