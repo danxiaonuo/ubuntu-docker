@@ -75,7 +75,7 @@ RUN set -eux && \
    # 更新源地址
    sed -i s@http://*.*ubuntu.com@https://mirrors.aliyun.com@g /etc/apt/sources.list && \
    # 更新依赖
-   DEBIAN_FRONTEND=noninteractive apt-get update -qqy && \
+   apt-get -y update && \
    # 更新系统软件
    DEBIAN_FRONTEND=noninteractive apt-get upgrade -qqy && \
    # 安装依赖包
