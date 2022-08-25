@@ -75,11 +75,11 @@ RUN set -eux && \
    # 更新源地址
    sed -i s@http://*.*ubuntu.com@https://mirrors.aliyun.com@g /etc/apt/sources.list && \
    # 更新系统软件
-   DEBIAN_FRONTEND=noninteractive apt-get update -qqy && apt-get upgrade -qqy && \
+   DEBIAN_FRONTEND=noninteractive apt update -qqy && apt upgrade -qqy && \
    # 安装依赖包
-   DEBIAN_FRONTEND=noninteractive apt-get install -qqy --no-install-recommends $PKG_DEPS && \
-   DEBIAN_FRONTEND=noninteractive apt-get -qqy --no-install-recommends autoremove --purge && \
-   DEBIAN_FRONTEND=noninteractive apt-get -qqy --no-install-recommends autoclean && \
+   DEBIAN_FRONTEND=noninteractive apt install -qqy --no-install-recommends $PKG_DEPS && \
+   DEBIAN_FRONTEND=noninteractive apt -qqy --no-install-recommends autoremove --purge && \
+   DEBIAN_FRONTEND=noninteractive apt -qqy --no-install-recommends autoclean && \
    rm -rf /var/lib/apt/lists/* && \
    # 更新时区
    ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime && \
