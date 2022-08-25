@@ -74,10 +74,10 @@ ENV PKG_DEPS=$PKG_DEPS
 RUN set -eux && \
    # 更新源地址
    sed -i s@http://*.*ubuntu.com@https://mirrors.aliyun.com@g /etc/apt/sources.list && \
-   # 更新依赖
-   apt-get -y update && \
+   # 解决证书认证失败问题
+   touch /etc/apt/apt.conf.d/99verify-peer.conf && && echo >>/etc/apt/apt.conf.d/99verify-peer.conf "Acquire { https::Verify-Peer false }" && \
    # 更新系统软件
-   DEBIAN_FRONTEND=noninteractive apt-get upgrade -qqy && \
+   DEBIAN_FRONTEND=noninteractive apt-get update -qqy && apt-get upgrade -qqy && \
    # 安装依赖包
    DEBIAN_FRONTEND=noninteractive apt-get install -qqy --no-install-recommends $PKG_DEPS && \
    DEBIAN_FRONTEND=noninteractive apt-get -qqy --no-install-recommends autoremove --purge && \
