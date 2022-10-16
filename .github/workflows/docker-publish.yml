@@ -34,7 +34,7 @@ jobs:
   build:
     # 选择虚拟环境
     runs-on: ubuntu-latest
-    if: github.event.repository.owner.id == github.event.sender.id
+    if: github.event.repository.owner.id == github.event.sender.id || ! github.event.sender.id
     strategy:
       fail-fast: false
       matrix:
@@ -46,7 +46,7 @@ jobs:
     
     # 检出master分支
     - name: 检出各个模块代码
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         fetch-depth: 0
 
