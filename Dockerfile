@@ -67,6 +67,11 @@ ARG PKG_DEPS="\
     python3-dev \
     python3-pip \
     language-pack-zh-hans \
+    fonts-droid-fallback \
+    fonts-wqy-zenhei \
+    fonts-wqy-microhei \
+    fonts-arphic-ukai \
+    fonts-arphic-uming \
     ca-certificates"
 ENV PKG_DEPS=$PKG_DEPS
 
@@ -91,5 +96,5 @@ RUN set -eux && \
    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true && \
    sed -i -e "s/bin\/ash/bin\/zsh/" /etc/passwd && \
    sed -i -e 's/mouse=/mouse-=/g' /usr/share/vim/vim*/defaults.vim && \
-   locale-gen en_US.UTF-8 && localedef -f UTF-8 -i en_US en_US.UTF-8 && locale-gen && \
+   locale-gen zh_CN.UTF-8 && localedef -f UTF-8 -i zh_CN zh_CN.UTF-8 && locale-gen && \
    /bin/zsh
