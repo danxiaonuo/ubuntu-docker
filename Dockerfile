@@ -1,7 +1,7 @@
 #############################
 #     设置公共的变量         #
 #############################
-ARG BASE_IMAGE_TAG=20.04
+ARG BASE_IMAGE_TAG=22.04
 FROM ubuntu:${BASE_IMAGE_TAG}
 
 # 作者描述信息
@@ -18,7 +18,7 @@ ARG DOCKER_IMAGE=danxiaonuo/ubuntu
 ENV DOCKER_IMAGE=$DOCKER_IMAGE
 ARG DOCKER_IMAGE_OS=ubuntu
 ENV DOCKER_IMAGE_OS=$DOCKER_IMAGE_OS
-ARG DOCKER_IMAGE_TAG=20.04
+ARG DOCKER_IMAGE_TAG=22.04
 ENV DOCKER_IMAGE_TAG=$DOCKER_IMAGE_TAG
 
 # 环境设置
