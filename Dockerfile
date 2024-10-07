@@ -1,7 +1,7 @@
 #############################
 #     设置公共的变量         #
 #############################
-ARG BASE_IMAGE_TAG=22.04
+ARG BASE_IMAGE_TAG=jammy
 FROM ubuntu:${BASE_IMAGE_TAG}
 
 # 作者描述信息
@@ -18,7 +18,7 @@ ARG DOCKER_IMAGE=danxiaonuo/ubuntu
 ENV DOCKER_IMAGE=$DOCKER_IMAGE
 ARG DOCKER_IMAGE_OS=ubuntu
 ENV DOCKER_IMAGE_OS=$DOCKER_IMAGE_OS
-ARG DOCKER_IMAGE_TAG=22.04
+ARG DOCKER_IMAGE_TAG=jammy
 ENV DOCKER_IMAGE_TAG=$DOCKER_IMAGE_TAG
 
 # 环境设置
@@ -61,6 +61,7 @@ ARG PKG_DEPS="\
     debsums \
     locales \
     iptables \
+    python2 \
     python3 \
     python3-dev \
     python3-pip \
@@ -83,7 +84,7 @@ RUN set -eux && \
    # 更新系统软件
    DEBIAN_FRONTEND=noninteractive apt-get update -qqy && apt-get upgrade -qqy && \
    # 安装依赖包
-   DEBIAN_FRONTEND=noninteractive apt-get install -qqy --no-install-recommends $PKG_DEPS && \
+   DEBIAN_FRONTEND=noninteractive apt-get install -qqy --no-install-recommends $PKG_DEPS --option=Dpkg::Options::=--force-confdef && \
    DEBIAN_FRONTEND=noninteractive apt-get -qqy --no-install-recommends autoremove --purge && \
    DEBIAN_FRONTEND=noninteractive apt-get -qqy --no-install-recommends autoclean && \
    rm -rf /var/lib/apt/lists/* && \
@@ -100,9 +101,10 @@ RUN set -eux && \
 
 # ***** 升级 setuptools 版本 *****
 RUN set -eux && \
+    wget --no-check-certificate https://bootstrap.pypa.io/pip/2.7/get-pip.py -O /tmp/get-pip.py && \
+    python2 /tmp/get-pip.py && \
     pip3 config set global.index-url http://mirrors.aliyun.com/pypi/simple/ && \
     pip3 config set install.trusted-host mirrors.aliyun.com && \
-    pip3 install --upgrade pip setuptools wheel pycryptodome lxml cython beautifulsoup4 requests && \
-    ln -sf /usr/bin/pip3 /usr/bin/pip && \
-    ln -sf /usr/bin/python3 /usr/bin/python && \
-    rm -r /root/.cache
+    pip3 install --upgrade pip setuptools wheel pycryptodome lxml cython beautifulsoup4 requests distro && \
+    update-alternatives --install /usr/bin/python python /usr/bin/python2 1
+    rm -r /root/.cache && rm -rf /tmp/*
