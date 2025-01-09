@@ -63,8 +63,13 @@ ARG PKG_DEPS="\
     iptables \
     python2 \
     python3 \
+    python-is-python3 \
     python3-dev \
     python3-pip \
+    python3-yaml \
+    python3.11 \
+    tini \
+    sshpass \
     language-pack-zh-hans \
     fonts-droid-fallback \
     fonts-wqy-zenhei \
@@ -99,11 +104,14 @@ RUN set -eux && \
    locale-gen zh_CN.UTF-8 && localedef -f UTF-8 -i zh_CN zh_CN.UTF-8 && locale-gen && \
    /bin/zsh
 
-# ***** 升级 setuptools 版本 *****
+# ***** 升级 python3 版本 *****
 RUN set -eux && \
-    wget --no-check-certificate https://bootstrap.pypa.io/pip/2.7/get-pip.py -O /tmp/get-pip.py && \
-    python2 /tmp/get-pip.py && \
+    update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 1 && \
     pip3 config set global.index-url http://mirrors.aliyun.com/pypi/simple/ && \
     pip3 config set install.trusted-host mirrors.aliyun.com && \
-    pip3 install --upgrade pip setuptools wheel pycryptodome lxml cython beautifulsoup4 requests distro && \
+    wget --no-check-certificate https://bootstrap.pypa.io/pip/2.7/get-pip.py -O /tmp/get-pip.py && \
+    python2 /tmp/get-pip.py && rm -rf /tmp/get-pip.py && \
+    wget --no-check-certificate https://bootstrap.pypa.io/get-pip.py -O /tmp/get-pip.py && \
+    python3 /tmp/get-pip.py && rm -rf /tmp/get-pip.py && \
+    pip3 install --upgrade pip setuptools wheel pycryptodome lxml cython beautifulsoup4 requests ansible passlib boto3 botocore docker docker-compose && \
     rm -r /root/.cache && rm -rf /tmp/*
