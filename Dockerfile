@@ -78,6 +78,7 @@ ARG PKG_DEPS="\
     python3.11 \
     tini \
     sshpass \
+    openssl \
     language-pack-zh-hans \
     fonts-droid-fallback \
     fonts-wqy-zenhei \
