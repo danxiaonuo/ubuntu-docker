@@ -25,6 +25,14 @@ ENV DOCKER_IMAGE_TAG=$DOCKER_IMAGE_TAG
 ARG DEBIAN_FRONTEND=noninteractive
 ENV DEBIAN_FRONTEND=$DEBIAN_FRONTEND
 
+# GO环境变量
+ARG GO_VERSION=1.23.4
+ENV GO_VERSION=$GO_VERSION
+ARG GOROOT=/opt/go
+ENV GOROOT=$GOROOT
+ARG GOPATH=/opt/golang
+ENV GOPATH=$GOPATH
+
 # 安装依赖包
 ARG PKG_DEPS="\
     zsh \
@@ -115,3 +123,13 @@ RUN set -eux && \
     python3 /tmp/get-pip.py && rm -rf /tmp/get-pip.py && \
     pip3 install --upgrade pip setuptools wheel pycryptodome lxml cython beautifulsoup4 requests ansible passlib boto3 botocore docker docker-compose && \
     rm -r /root/.cache && rm -rf /tmp/*
+
+# ***** 安装golang *****
+RUN set -eux && \
+    wget --no-check-certificate https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz -O /tmp/go${GO_VERSION}.linux-amd64.tar.gz && \
+    cd /tmp/ && tar zxvf go${GO_VERSION}.linux-amd64.tar.gz -C /opt && \
+    export GOROOT=/opt/go && \
+    export GOPATH=/opt/golang && \
+    export PATH=$PATH:$GOROOT/bin:$GOPATH/bin && \
+    mkdir -pv $GOPATH/bin && rm -rf /tmp/* && \
+    ln -sfd /opt/go/bin/* /usr/bin/
