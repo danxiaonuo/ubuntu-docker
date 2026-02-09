@@ -1,11 +1,13 @@
 #############################
 #     设置公共的变量         #
 #############################
-ARG BASE_IMAGE_TAG=jammy
+ARG BASE_IMAGE_TAG=resolute
 FROM ubuntu:${BASE_IMAGE_TAG}
 
 # 作者描述信息
-MAINTAINER danxiaonuo
+LABEL org.opencontainers.image.authors="danxiaonuo" \
+      org.opencontainers.image.vendor="danxiaonuo"
+      
 # 时区设置
 ARG TZ=Asia/Shanghai
 ENV TZ=$TZ
@@ -18,7 +20,7 @@ ARG DOCKER_IMAGE=danxiaonuo/ubuntu
 ENV DOCKER_IMAGE=$DOCKER_IMAGE
 ARG DOCKER_IMAGE_OS=ubuntu
 ENV DOCKER_IMAGE_OS=$DOCKER_IMAGE_OS
-ARG DOCKER_IMAGE_TAG=jammy
+ARG DOCKER_IMAGE_TAG=resolute
 ENV DOCKER_IMAGE_TAG=$DOCKER_IMAGE_TAG
 
 # 环境设置
@@ -26,7 +28,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ENV DEBIAN_FRONTEND=$DEBIAN_FRONTEND
 
 # GO环境变量
-ARG GO_VERSION=1.23.4
+ARG GO_VERSION=1.25.7
 ENV GO_VERSION=$GO_VERSION
 ARG GOROOT=/opt/go
 ENV GOROOT=$GOROOT
@@ -39,53 +41,97 @@ ARG PKG_DEPS="\
     bash \
     bash-doc \
     bash-completion \
-    dnsutils \
+    conntrack \
+    ipset \
+    ipvsadm \
+    bind9-dnsutils \
     iproute2 \
     net-tools \
+    iptables \
+    bridge-utils \
+    openvswitch-switch \
+    libseccomp2 \
+    nfs-common \
+    rsync \
+    socat \
+    psmisc \
+    procps \
     sysstat \
-    ncat \
-    git \
-    vim \
+    firewalld \
+    chrony \
+    ntpsec-ntpdate \
+    tcpdump \
+    telnet \
+    lsof \
+    iftop \
+    htop \
+    nmap \
+    nmap-common \
     jq \
-    lrzsz \
-    tzdata \
     curl \
     wget \
     axel \
-    lsof \
-    zip \
+    git \
+    vim \
+    tree \
     unzip \
+    zip \
     tar \
-    rsync \
-    iputils-ping \
-    telnet \
-    procps \
-    libaio1 \
-    numactl \
-    xz-utils \
+    subversion \
+    lrzsz \
+    gcc \
+    g++ \
+    gcc-multilib \
+    g++-multilib \
+    build-essential \
+    binutils \
+    autoconf \
+    automake \
+    libtool \
+    gettext \
+    autopoint \
+    asciidoc \
+    gawk \
+    patch \
+    flex \
+    texinfo \
+    device-tree-compiler \
+    zlib1g-dev \
+    libc6-dev-i386 \
+    libelf-dev \
+    libssl-dev \
+    openssl \
+    libglib2.0-dev \
+    xmlto \
+    libncurses-dev \
+    locate \
+    lvm2 \
+    rsyslog \
+    ca-certificates \
     gnupg2 \
-    psmisc \
-    libmecab2 \
     debsums \
     locales \
-    iptables \
-    python2 \
-    python3 \
-    python-is-python3 \
-    python3-dev \
-    python3-pip \
-    python3-yaml \
-    python3.11 \
-    tini \
-    sshpass \
-    openssl \
-    language-pack-zh-hans \
+    tzdata \
     fonts-droid-fallback \
     fonts-wqy-zenhei \
     fonts-wqy-microhei \
     fonts-arphic-ukai \
     fonts-arphic-uming \
-    ca-certificates"
+    language-pack-zh-hans \
+    numactl \
+    xz-utils \
+    libaio-dev \
+    python3 \
+    python3-dev \
+    python3-pip \
+    python3-yaml \
+    python-is-python3 \
+    tini \
+    sshpass \
+    iputils-ping \
+    ncat \
+    upx-ucl \
+    uglifyjs"
 ENV PKG_DEPS=$PKG_DEPS
 
 # ***** 安装依赖 *****
