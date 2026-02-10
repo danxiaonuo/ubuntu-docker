@@ -167,20 +167,9 @@ RUN set -eux && \
 # ***** 升级 python3 版本 *****
 RUN set -eux && \
     python3 -m pip config set global.break-system-packages true && \
-    update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.13 1 && \
     pip3 config set global.index-url http://mirrors.aliyun.com/pypi/simple/ && \
     pip3 config set install.trusted-host mirrors.aliyun.com && \
-    wget --no-check-certificate https://bootstrap.pypa.io/get-pip.py -O /tmp/get-pip.py && \
-    python3 /tmp/get-pip.py && rm -rf /tmp/get-pip.py && \
     pip3 install --upgrade pip setuptools wheel pycryptodome lxml cython beautifulsoup4 requests ansible passlib boto3 botocore docker docker-compose && \
-    curl https://pyenv.run | bash && \
-    echo 'export PYENV_ROOT="$HOME/.pyenv"' >> /root/.bashrc && \
-    echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> /root/.bashrc && \
-    echo 'eval "$(pyenv init --path)"' >> /root/.bashrc && \
-    echo 'eval "$(pyenv init -)"' >> /root/.bashrc && \
-    pyenv install 2.7.18 && pyenv global 2.7.18 && \
-    wget --no-check-certificate https://bootstrap.pypa.io/pip/2.7/get-pip.py -O /tmp/get-pip.py && \
-    python2 /tmp/get-pip.py && rm -rf /tmp/get-pip.py && \
     rm -r /root/.cache && rm -rf /tmp/*
 
 # ***** 安装golang *****
