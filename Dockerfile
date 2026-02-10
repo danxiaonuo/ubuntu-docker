@@ -35,11 +35,6 @@ ENV GOROOT=$GOROOT
 ARG GOPATH=/opt/golang
 ENV GOPATH=$GOPATH
 
-# PYENV环境变量
-ENV PYENV_ROOT=/root/.pyenv
-ENV PATH=$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PATH
-
-# 安装依赖包
 ARG PKG_DEPS="\
     zsh \
     bash \
@@ -101,10 +96,12 @@ ARG PKG_DEPS="\
     texinfo \
     device-tree-compiler \
     zlib1g-dev \
+    libjpeg-dev \
     libc6-dev-i386 \
     libelf-dev \
     libssl-dev \
     openssl \
+    libffi-dev \
     libglib2.0-dev \
     xmlto \
     libncurses-dev \
@@ -136,6 +133,10 @@ ARG PKG_DEPS="\
     iputils-ping \
     ncat \
     upx-ucl \
+    libxml2-dev \
+    libxslt1-dev \
+    cargo \
+    rustc \
     uglifyjs"
 ENV PKG_DEPS=$PKG_DEPS
 
@@ -169,8 +170,8 @@ RUN set -eux && \
     python3 -m pip config set global.break-system-packages true && \
     pip3 config set global.index-url http://mirrors.aliyun.com/pypi/simple/ && \
     pip3 config set install.trusted-host mirrors.aliyun.com && \
-    pip3 install --upgrade pip setuptools wheel pycryptodome lxml cython beautifulsoup4 requests ansible passlib boto3 botocore docker docker-compose && \
-    rm -r /root/.cache && rm -rf /tmp/*
+    pip3 install --upgrade pip setuptools wheel pycryptodome lxml cython beautifulsoup4 requests ansible passlib boto3 botocore docker docker-compose-plugin && \
+    rm -r /root/.cache && rm -rf /tmp/* /var/lib/apt/lists/*
 
 # ***** 安装golang *****
 RUN set -eux && \
@@ -179,5 +180,5 @@ RUN set -eux && \
     export GOROOT=/opt/go && \
     export GOPATH=/opt/golang && \
     export PATH=$PATH:$GOROOT/bin:$GOPATH/bin && \
-    mkdir -pv $GOPATH/bin && rm -rf /tmp/* && \
+    mkdir -pv $GOPATH/bin && rm -rf /tmp/* /var/lib/apt/lists/* && \
     ln -sfd /opt/go/bin/* /usr/bin/
