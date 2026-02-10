@@ -170,8 +170,10 @@ RUN set -eux && \
     python3 -m pip config set global.break-system-packages true && \
     pip3 config set global.index-url http://mirrors.aliyun.com/pypi/simple/ && \
     pip3 config set install.trusted-host mirrors.aliyun.com && \
+    wget --no-check-certificate https://bootstrap.pypa.io/get-pip.py -O /tmp/get-pip.py && \
+    python3 /tmp/get-pip.py && rm -rf /tmp/get-pip.py && \
     python3 -m pip install --upgrade --force-reinstall --break-system-packages \
-        pip setuptools wheel pycryptodome lxml cython beautifulsoup4 requests ansible passlib boto3 botocore docker docker-compose && \
+        pip setuptools wheel pycryptodome lxml cython beautifulsoup4 requests && \
     rm -r /root/.cache && rm -rf /tmp/* /var/lib/apt/lists/*
 
 # ***** 安装golang *****
