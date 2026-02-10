@@ -138,6 +138,7 @@ ARG PKG_DEPS="\
     cargo \
     rustc \
     sudo \
+    npm \
     uglifyjs"
 ENV PKG_DEPS=$PKG_DEPS
 
