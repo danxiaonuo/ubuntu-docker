@@ -137,6 +137,7 @@ ARG PKG_DEPS="\
     libxslt1-dev \
     cargo \
     rustc \
+    sudo \
     uglifyjs"
 ENV PKG_DEPS=$PKG_DEPS
 
@@ -168,7 +169,7 @@ RUN set -eux && \
 # ***** 安装 Node.js 最新 LTS（每次构建时安装当前最新版本）*****
 # 使用 n 在构建时获取最新 LTS；若需最新 Current 可改为 n latest
 RUN set -eux && \
-curl -fsSL https://deb.nodesource.com/setup_22.x | sudo bash - && \
+curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
    DEBIAN_FRONTEND=noninteractive apt-get update -qqy && \
    DEBIAN_FRONTEND=noninteractive apt-get install -qqy --no-install-recommends nodejs && \
    npm config set registry https://registry.npmmirror.com && \
