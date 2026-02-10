@@ -172,7 +172,7 @@ RUN set -eux && \
     pip3 config set install.trusted-host mirrors.aliyun.com && \
     python3 -m pip install --no-cache-dir --upgrade setuptools wheel cython && \
     python3 -m pip install --no-cache-dir pycryptodome lxml cython beautifulsoup4 requests && \
-    rm -r /root/.cache && rm -rf /tmp/* /var/lib/apt/lists/*
+    rm -rf /tmp/* /var/lib/apt/lists/*
 
 # ***** 安装golang *****
 RUN set -eux && \
