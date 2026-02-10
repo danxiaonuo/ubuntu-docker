@@ -165,6 +165,18 @@ RUN set -eux && \
    locale-gen zh_CN.UTF-8 && localedef -f UTF-8 -i zh_CN zh_CN.UTF-8 && locale-gen && \
    /bin/zsh
 
+# ***** 安装 Node.js 最新 LTS（每次构建时安装当前最新版本）*****
+# 使用 n 在构建时获取最新 LTS；若需最新 Current 可改为 n latest
+RUN set -eux && \
+curl -fsSL https://deb.nodesource.com/setup_22.x | sudo bash - && \
+   DEBIAN_FRONTEND=noninteractive apt-get update -qqy && \
+   DEBIAN_FRONTEND=noninteractive apt-get install -qqy --no-install-recommends nodejs && \
+   npm config set registry https://registry.npmmirror.com && \
+   npm install -g n && \
+   n lts && \
+   npm install -g wrangler && \
+   rm -rf /var/lib/apt/lists/* /tmp/*
+
 # ***** 升级 python3 版本 *****
 RUN set -eux && \
     python3 -m pip config set global.break-system-packages true && \
