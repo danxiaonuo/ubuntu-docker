@@ -182,4 +182,4 @@ RUN set -eux && \
     export GOPATH=/opt/golang && \
     export PATH=$PATH:$GOROOT/bin:$GOPATH/bin && \
     mkdir -pv $GOPATH/bin && rm -rf /tmp/* /var/lib/apt/lists/* && \
-    ln -sfd /opt/go/bin/* /usr/bin/
+    ln -sf /opt/go/bin/* /usr/bin/
