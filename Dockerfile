@@ -128,6 +128,7 @@ ARG PKG_DEPS="\
     python3-yaml \
     python3-venv \
     python-is-python3 \
+    supervisor \
     tini \
     sshpass \
     iputils-ping \
